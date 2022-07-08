@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import propTypes from 'prop-types';
-import AppContext from './Context';
+import PropTypes from 'prop-types';
+import AppContext from './AppContext';
 
 function Provider({ children }) {
   const [data, setData] = useState([]);
@@ -25,7 +25,6 @@ function Provider({ children }) {
     setData,
     planets,
     setPlanets,
-    filterPlanets,
   };
 
   return (
@@ -36,7 +35,7 @@ function Provider({ children }) {
 }
 
 Provider.propTypes = {
-  children: propTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Provider;
