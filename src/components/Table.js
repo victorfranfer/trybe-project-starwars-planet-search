@@ -2,11 +2,14 @@ import React, { useContext } from 'react';
 import AppContext from '../utils/AppContext';
 
 function Table() {
-  const { planets } = useContext(AppContext);
+  const { data, filterByName } = useContext(AppContext);
 
   const tableHead = ['Name', 'Rotation Period', 'Orbital Period', 'Diameter',
     'Climate', 'Gravity', 'Terrain', 'Surface Water', 'Population', 'Films',
     'Create', 'Edited', 'Url'];
+
+  const filterPlanets = () => data.filter((planet) => planet
+    .name.includes(filterByName.name));
 
   return (
     <div>
@@ -19,25 +22,11 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {
-            planets.map((planet, index) => (
-              <tr key={ index }>
-                <td>{ planet.name }</td>
-                <td>{ planet.rotation_period }</td>
-                <td>{ planet.orbital_period }</td>
-                <td>{ planet.diameter }</td>
-                <td>{ planet.climate }</td>
-                <td>{ planet.gravity }</td>
-                <td>{ planet.terrain }</td>
-                <td>{ planet.surface_water }</td>
-                <td>{ planet.population }</td>
-                <td>{ planet.films }</td>
-                <td>{ planet.created }</td>
-                <td>{ planet.edited }</td>
-                <td>{ planet.url }</td>
-              </tr>
-            ))
-          }
+          {data.length && filterPlanets().map((planet) => (
+            <tr key={ planet.name }>
+              { Object.values(planet)
+                .map((value) => <td key={ value }>{value}</td>)}
+            </tr>))}
         </tbody>
       </table>
     </div>
