@@ -1,6 +1,7 @@
 import React from 'react';
 import Table from './components/Table';
 import FilterByText from './components/FilterByText';
+import FilterByNumber from './components/FilterByNumber';
 import Provider from './utils/Provider';
 import './App.css';
 
@@ -9,6 +10,7 @@ function App() {
     <Provider>
       <h2>StarWars</h2>
       <FilterByText />
+      <FilterByNumber />
       <Table />
     </Provider>
   );

@@ -5,6 +5,7 @@ import AppContext from './AppContext';
 function Provider({ children }) {
   const [data, setData] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
+  const [filterByNumericValue, setFilterByNumericValue] = useState([]);
 
   useEffect(() => {
     const getPlanets = async () => {
@@ -25,6 +26,8 @@ function Provider({ children }) {
     setData,
     filterByName,
     setFilterByName,
+    filterByNumericValue,
+    setFilterByNumericValue,
   };
 
   return (
