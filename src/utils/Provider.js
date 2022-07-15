@@ -14,12 +14,24 @@ function Provider({ children }) {
   const [filterByNumericValue, setFilterByNumericValue] = useState([]);
   const [filteredPlanets, setFilteredPlanets] = useState([]);
 
+  const sortData = (planets) => {
+    console.log(planets);
+    const ordered = planets.sort((planetA, planetB) => {
+      const MAGIC = -1;
+      if (planetA.name > planetB.name) return 1;
+      return MAGIC;
+    });
+    return ordered;
+  };
+
   useEffect(() => {
     const getPlanets = async () => {
       const url = 'https://swapi-trybe.herokuapp.com/api/planets/';
       const response = await fetch(url);
       const obj = await response.json();
-      setData(obj.results);
+      const order = sortData(obj.results);
+      setData(order);
+      setFilteredPlanets(order);
     };
     getPlanets();
   }, []);

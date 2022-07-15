@@ -236,3 +236,5 @@ const response = {
       url: 'https://swapi-trybe.herokuapp.com/api/planets/10/',
     },
   ],}
+
+  export default response;

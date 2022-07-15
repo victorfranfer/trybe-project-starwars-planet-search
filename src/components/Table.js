@@ -51,7 +51,7 @@ function Table() {
         </div>
         <div>
           <label htmlFor="asc">
-            Ascendente
+            Ascendent
             <input
               type="radio"
               name="order"
@@ -62,7 +62,7 @@ function Table() {
             />
           </label>
           <label htmlFor="desc">
-            Descendente
+            Descendent
             <input
               type="radio"
               name="order"
@@ -79,7 +79,7 @@ function Table() {
             data-testid="column-sort-button"
             onClick={ sortTable }
           >
-            Ordena
+            Order
           </button>
         </div>
       </div>
