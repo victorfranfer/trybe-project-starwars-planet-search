@@ -3,9 +3,16 @@ import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 
 function Provider({ children }) {
+  const columnsArray = ['population', 'orbital_period',
+    'diameter', 'rotation_period', 'surface_water'];
+  const [column, setColumn] = useState([...columnsArray]);
   const [data, setData] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
+  const [columnFilter, setColumnFilter] = useState('population');
+  const [comparisonFilter, setComparisonFilter] = useState('maior que');
+  const [valueFilter, setValueFilter] = useState(0);
   const [filterByNumericValue, setFilterByNumericValue] = useState([]);
+  const [filteredPlanets, setFilteredPlanets] = useState([]);
 
   useEffect(() => {
     const getPlanets = async () => {
@@ -18,7 +25,7 @@ function Provider({ children }) {
   }, []);
 
   useEffect(() => {
-    setData(data);
+    setFilteredPlanets(data);
   }, [data]);
 
   const contextValue = {
@@ -28,6 +35,16 @@ function Provider({ children }) {
     setFilterByName,
     filterByNumericValue,
     setFilterByNumericValue,
+    columnFilter,
+    setColumnFilter,
+    comparisonFilter,
+    setComparisonFilter,
+    valueFilter,
+    setValueFilter,
+    filteredPlanets,
+    setFilteredPlanets,
+    column,
+    setColumn,
   };
 
   return (

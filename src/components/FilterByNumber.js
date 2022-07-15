@@ -1,46 +1,117 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AppContext from '../utils/AppContext';
 
 function FilterByNumber() {
   const {
-    filterByNumericValue,
-    setFilterByNumericValue,
+    data,
+    // setData,
+    columnFilter,
+    setColumnFilter,
+    comparisonFilter,
+    setComparisonFilter,
+    valueFilter,
+    setValueFilter,
+    setFilteredPlanets,
+    column,
+    setColumn,
   } = useContext(AppContext);
-  const { column, comparison, value } = filterByNumericValue;
+  console.log(column);
 
-  const handleClick = (data) => {
-    const filter = data.filter((planet) => {
-      if (comparison === 'maior que') {
-        return parseInt(planet[column], 10)
-            > parseInt(value, 10);
+  const [filters, setFilters] = useState(false);
+  const [arrays, setArrays] = useState([]);
+
+  // HANDLE CLICK ORIGINAL MEU
+  // const handleClick = () => {
+  //   const filter = data.filter((planet) => {
+  //     if (comparisonFilter === 'maior que') {
+  //       return parseInt(planet[columnFilter], 10)
+  //           > parseInt(valueFilter, 10);
+  //     }
+  //     if (comparisonFilter === 'menor que') {
+  //       return parseInt(planet[columnFilter], 10)
+  //           < parseInt(valueFilter, 10);
+  //     }
+  //     return parseInt(planet[columnFilter], 10) === parseInt(valueFilter, 10);
+  //   });
+  //   setFilterByName((prevState) => [
+  //     ...prevState,
+  //     { column: columnFilter, comparison: comparisonFilter, value: valueFilter },
+  //   ]);
+  //   setFilteredPlanets(filter);
+  // };
+
+  const handleClick = () => {
+    const filter = data.filter((planet) => arrays.every((element) => {
+      if (element.comparison === 'maior que') {
+        return Number(planet[element.column]) > Number(element.val);
       }
-      if (comparison === 'menor que') {
-        return parseInt(planet[column], 10)
-            < parseInt(value, 10);
+      if (element.comparison === 'menor que') {
+        return Number(planet[element.column]) < Number(element.val);
       }
-      return parseInt(planet[column], 10) === parseInt(value, 10);
-    });
-    console.log(filter);
-    return filter;
+      if (element.comparison === 'igual a') {
+        return Number(planet[element.column]) === Number(element.val);
+      }
+      return false;
+    }));
+    setFilteredPlanets(filter);
+  };
+
+  useEffect(() => {
+    handleClick();
+  }, [arrays]);
+
+  const handleClickDelete = (columnDelete) => {
+    setArrays(
+      (prevState) => prevState.filter((element) => element.column !== columnDelete),
+    );
+    setColumn([...column, columnDelete]);
+  };
+
+  const handleDeleteAll = () => {
+    const columnsArray = [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ];
+    setArrays([]);
+    setColumn([...columnsArray]);
+    setFilteredPlanets(data);
+  };
+
+  const handleClickFilter = () => {
+    setArrays((prevState) => [
+      ...prevState,
+      { column: columnFilter, comparison: comparisonFilter, val: valueFilter },
+    ]);
+    const newColumn = column.filter((option) => option !== columnFilter);
+    setColumn(newColumn);
+    setFilters(true);
+    /* setArrays((prevState) => [
+      ...prevState,
+      { column: columnFilter, comparison: comparisonFilter, val: value },
+    ]); */
+    setColumnFilter(newColumn[0]);
+    setComparisonFilter('maior que');
+    setValueFilter(0);
   };
 
   return (
     <div>
       <select
         data-testid="column-filter"
-        onChange={ (e) => setFilterByNumericValue([...filterByNumericValue,
-          { column: e.target.value }]) }
+        value={ columnFilter }
+        onChange={ (e) => setColumnFilter(e.target.value) }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        { column.map((element) => (
+          <option value={ element } key={ element }>{element}</option>
+        )) }
       </select>
       <select
         data-testid="comparison-filter"
-        onChange={ (e) => setFilterByNumericValue([...filterByNumericValue,
-          { ...filterByNumericValue, comparison: e.target.value }]) }
+        onChange={ (e) => setComparisonFilter(e.target.value) }
+        value={ comparisonFilter }
       >
         <option value="maior que">maior que</option>
         <option value="menor que">menor que</option>
@@ -49,17 +120,40 @@ function FilterByNumber() {
       <input
         type="number"
         data-testid="value-filter"
-        value={ value }
-        onChange={ (e) => setFilterByNumericValue([...filterByNumericValue,
-          { value: e.target.value }]) }
+        value={ valueFilter }
+        onChange={ (e) => setValueFilter(e.target.value) }
       />
       <button
         type="button"
         data-testid="button-filter"
-        onClick={ handleClick }
+        onClick={ handleClickFilter }
       >
         Filter
       </button>
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ handleDeleteAll }
+      >
+        Remove Filters
+      </button>
+      {filters && (
+        <div>
+          {arrays.map((element, i) => (
+            <div data-testid="filter" key={ i }>
+              <span>{element.column}</span>
+              <span>{element.comparison}</span>
+              <span>{element.val}</span>
+              <button
+                onClick={ () => handleClickDelete(element.column) }
+                type="button"
+              >
+                X
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

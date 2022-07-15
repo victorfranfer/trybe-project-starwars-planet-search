@@ -2,7 +2,13 @@ import React, { useContext } from 'react';
 import AppContext from '../utils/AppContext';
 
 function FilterByText() {
-  const { filterByName, setFilterByName } = useContext(AppContext);
+  const { data, setFilteredPlanets } = useContext(AppContext);
+
+  const searchPlanets = ({ target }) => {
+    const array = data.filter((element) => element.name.includes(target.value));
+    setFilteredPlanets(array);
+  };
+
   return (
     <label htmlFor="filter">
       Search:
@@ -10,8 +16,7 @@ function FilterByText() {
         type="text"
         id="filter"
         data-testid="name-filter"
-        value={ filterByName.name }
-        onChange={ (e) => setFilterByName({ name: e.target.value }) }
+        onChange={ searchPlanets }
       />
     </label>
   );
