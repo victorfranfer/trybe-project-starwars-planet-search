@@ -14,7 +14,6 @@ function FilterByNumber() {
     column,
     setColumn,
   } = useContext(AppContext);
-  console.log(column);
 
   const [filters, setFilters] = useState(false);
   const [arrays, setArrays] = useState([]);

@@ -28,6 +28,22 @@ function Provider({ children }) {
     setFilteredPlanets(data);
   }, [data]);
 
+  const sortPlanetsBy = ({ columnName, sort }) => {
+    const withoutUnknown = data.filter((planet) => planet[columnName] !== 'unknown');
+    const withUnknown = data.filter((planet) => planet[columnName] === 'unknown');
+    let sortedPlanets = [];
+    if (sort === 'ASC') {
+      sortedPlanets = withoutUnknown.sort((planetA, planetB) => (
+        planetA[columnName] - planetB[columnName]
+      ));
+    } else {
+      sortedPlanets = withoutUnknown.sort((planetA, planetB) => (
+        planetB[columnName] - planetA[columnName]
+      ));
+    }
+    setFilteredPlanets([...sortedPlanets, ...withUnknown]);
+  };
+
   const contextValue = {
     data,
     setData,
@@ -45,6 +61,7 @@ function Provider({ children }) {
     setFilteredPlanets,
     column,
     setColumn,
+    sortPlanetsBy,
   };
 
   return (

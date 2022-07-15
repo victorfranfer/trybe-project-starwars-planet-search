@@ -8,7 +8,9 @@ import './App.css';
 function App() {
   return (
     <Provider>
-      <h2>StarWars</h2>
+      <header className="App-header">
+        <h2>StarWars</h2>
+      </header>
       <FilterByText />
       <FilterByNumber />
       <Table />
