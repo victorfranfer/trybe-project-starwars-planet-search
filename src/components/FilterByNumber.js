@@ -4,7 +4,6 @@ import AppContext from '../utils/AppContext';
 function FilterByNumber() {
   const {
     data,
-    // setData,
     columnFilter,
     setColumnFilter,
     comparisonFilter,
@@ -19,26 +18,6 @@ function FilterByNumber() {
 
   const [filters, setFilters] = useState(false);
   const [arrays, setArrays] = useState([]);
-
-  // HANDLE CLICK ORIGINAL MEU
-  // const handleClick = () => {
-  //   const filter = data.filter((planet) => {
-  //     if (comparisonFilter === 'maior que') {
-  //       return parseInt(planet[columnFilter], 10)
-  //           > parseInt(valueFilter, 10);
-  //     }
-  //     if (comparisonFilter === 'menor que') {
-  //       return parseInt(planet[columnFilter], 10)
-  //           < parseInt(valueFilter, 10);
-  //     }
-  //     return parseInt(planet[columnFilter], 10) === parseInt(valueFilter, 10);
-  //   });
-  //   setFilterByName((prevState) => [
-  //     ...prevState,
-  //     { column: columnFilter, comparison: comparisonFilter, value: valueFilter },
-  //   ]);
-  //   setFilteredPlanets(filter);
-  // };
 
   const handleClick = () => {
     const filter = data.filter((planet) => arrays.every((element) => {
@@ -88,10 +67,6 @@ function FilterByNumber() {
     const newColumn = column.filter((option) => option !== columnFilter);
     setColumn(newColumn);
     setFilters(true);
-    /* setArrays((prevState) => [
-      ...prevState,
-      { column: columnFilter, comparison: comparisonFilter, val: value },
-    ]); */
     setColumnFilter(newColumn[0]);
     setComparisonFilter('maior que');
     setValueFilter(0);

@@ -11,27 +11,6 @@ function Table() {
     'Climate', 'Gravity', 'Terrain', 'Surface Water', 'Population', 'Films',
     'Create', 'Edited', 'Url'];
 
-  // const columnsArray = ['population', 'orbital_period',
-  //   'diameter', 'rotation_period', 'surface_water'];
-
-  // const filterPlanets = () => data.filter((planet) => planet
-  //   .name.includes(filterByName.name));
-
-  // const filterPlanets = () => data.filter((planet) => {
-  //   console.log(data);
-  //   console.log(filterByName);
-  //   console.log(filterByNumericValue);
-  //   if (filterByName !== '') {
-  //     return planet.name.includes(filterByName.name);
-  //   }
-  //   for (i === 0; i < columnsArray.length; i += 1) {
-  //     if (filterByNumericValue.column === columnsArray[i]) {
-  //       return planet.column.includes(filterByNumericValue.column);
-  //     }
-  //   }
-  //   return null;
-  // });
-
   return (
     <table>
       <tbody>
