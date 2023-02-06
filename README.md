@@ -1,4 +1,4 @@
-# :construction: README customizado em construção ! :construction:
+# Starwars Planet Search - Trybe Project
 <!-- Olá, Tryber!
 Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
 
@@ -11,3 +11,6 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 - quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
 - quais arquivos/pastas foram desenvolvidos pela Trybe.
 -->
+Project consists on a page where the user can search information about the planets in th Star Wars universe. Practice with Context API and React Hooks. 
+
+Done in July 2022. 
